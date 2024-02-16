@@ -6,7 +6,7 @@ class BaseModel extends Model {
   var entityBeingEdited;
   String? chosenDate;
 
-  void setChosenDate(String date) {
+  void setChosenDate(String? date) {
     chosenDate = date;
     notifyListeners();
   }

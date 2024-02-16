@@ -6,6 +6,7 @@ class Note {
   String? content;
   String? color;
 
+  @override
   String toString() {
     return "{ id=$id, title=$title, "
         "content=$content, color=$color }";
