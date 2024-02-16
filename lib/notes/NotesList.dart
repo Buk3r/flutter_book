@@ -19,6 +19,7 @@ class NotesList extends StatelessWidget {
               NotesModel model){
             return Scaffold(
               floatingActionButton: FloatingActionButton(
+                backgroundColor: Colors.blue,
                 onPressed: () {
                   notesModel.entityBeingEdited = Note();
                   notesModel.setColor(null);
@@ -26,16 +27,18 @@ class NotesList extends StatelessWidget {
                 },
                 child: const Icon(Icons.add, color: Colors.white),
               ),
-              body: ListView.builder(itemBuilder: (BuildContext context, int index) {
-                Note note = notesModel.entityList[index];
-                Color color = Colors.white;
-                switch (note.color) {
-                  case "red" : color = Colors.red;
-                  case "green" : color = Colors.green;
-                  case "blue" : color = Colors.blue;
-                  case "yellow" : color = Colors.yellow;
-                  case "grey" : color = Colors.grey;
-                  case "purple" : color = Colors.purple;
+              body: ListView.builder(
+                itemCount: notesModel.entityList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  Note note = notesModel.entityList[index];
+                  Color color = Colors.white;
+                  switch (note.color) {
+                    case "red" : color = Colors.red;
+                    case "green" : color = Colors.green;
+                    case "blue" : color = Colors.blue;
+                    case "yellow" : color = Colors.yellow;
+                    case "grey" : color = Colors.grey;
+                    case "purple" : color = Colors.purple;
                 }
 
                 return Container(

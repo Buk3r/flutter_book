@@ -24,11 +24,13 @@ class FlutterBook extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: DefaultTabController(
-        length: 4,
+        length: 1,
         child: Scaffold(
           appBar: AppBar(
+            backgroundColor: Colors.blue,
             title: const Text("Flutter Book"),
             bottom: const TabBar(
+              labelColor: Colors.white,
               tabs: [
                 // Tab(
                 //   icon: Icon(Icons.date_range),

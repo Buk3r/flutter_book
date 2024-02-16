@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_book/notes/NotesEntry.dart';
 import 'package:flutter_book/notes/NotesList.dart';
 import 'package:scoped_model/scoped_model.dart';
 
+import 'NotesDBWorker.dart';
 import 'NotesModel.dart' show NotesModel, notesModel;
 
 class Notes extends StatelessWidget {
   Notes({super.key}) {
-    //notesModel.loadData("notes", NotesDbWorker.db);
+    notesModel.loadData("notes", NotesDBWorker.db);
   }
 
   @override
@@ -17,8 +19,9 @@ class Notes extends StatelessWidget {
           builder: (BuildContext context, Widget? child, NotesModel model){
             return IndexedStack(
               index: model.stackIndex,
-              children: const [
-                NotesList(),
+              children: [
+                const NotesList(),
+                NotesEntry(),
               ],
             );
           },
