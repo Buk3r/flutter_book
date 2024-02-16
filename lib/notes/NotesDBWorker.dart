@@ -16,34 +16,28 @@ class NotesDBWorker {
 
   Future<Database> init() async {
     String path = join(utils.docDir!.path, "notes.db");
-    Database db = await openDatabase(
-        path,
-        version: 1,
-        onOpen: (db) { },
+    Database db = await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
-          await db.execute(
-            "CREATE TABLE IF NOT EXISTS notes ("
-                "id INTEGER PRIMARY KEY,"
-                "title TEXT,"
-                "content TEXT,"
-                "color TEXT"
-            ")"
-          );
-        }
-    );
+      await db.execute("CREATE TABLE IF NOT EXISTS notes ("
+          "id INTEGER PRIMARY KEY,"
+          "title TEXT,"
+          "content TEXT,"
+          "color TEXT"
+          ")");
+    });
 
     return db;
   }
 
-  Note noteFromMap(Map map){
+  Note noteFromMap(Map map) {
     return Note()
-        ..id = map["id"]
-        ..title = map["title"]
-        ..content = map["content"]
-        ..color = map["color"];
+      ..id = map["id"]
+      ..title = map["title"]
+      ..content = map["content"]
+      ..color = map["color"];
   }
 
-  Map<String, dynamic> noteToMap(Note note){
+  Map<String, dynamic> noteToMap(Note note) {
     return <String, dynamic>{
       "id": note.id,
       "title": note.title,
@@ -54,9 +48,7 @@ class NotesDBWorker {
 
   Future create(Note note) async {
     Database db = await database;
-    var val = await db.rawQuery(
-      "SELECT MAX(id) + 1 AS id FROM notes"
-    );
+    var val = await db.rawQuery("SELECT MAX(id) + 1 AS id FROM notes");
     int? id = val.first["id"] as int?;
     id ??= 1;
 
@@ -69,9 +61,7 @@ class NotesDBWorker {
 
   Future<Note> get(int? id) async {
     Database db = await database;
-    var rec = await db.query(
-      "notes", where: "id = ?", whereArgs: [id]
-    );
+    var rec = await db.query("notes", where: "id = ?", whereArgs: [id]);
 
     return noteFromMap(rec.first);
   }
@@ -79,9 +69,7 @@ class NotesDBWorker {
   Future<List> getAll() async {
     Database db = await database;
     var recs = await db.query("notes");
-    return recs.isNotEmpty
-        ? recs.map((m) => noteFromMap(m)).toList()
-        : [];
+    return recs.isNotEmpty ? recs.map((m) => noteFromMap(m)).toList() : [];
   }
 
   Future update(Note note) async {

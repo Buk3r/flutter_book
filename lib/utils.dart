@@ -11,7 +11,7 @@ Future selectDate(
     String? dateString) async {
   DateTime initialDate = DateTime.now();
 
-  if (dateString != null){
+  if (dateString != null) {
     List<String> dateParts = dateString.split(",");
     initialDate = DateTime(
       int.parse(dateParts[0]),
@@ -24,13 +24,10 @@ Future selectDate(
       context: context,
       initialDate: initialDate,
       firstDate: DateTime(1900),
-      lastDate: DateTime(2100)
-  );
+      lastDate: DateTime(2100));
 
   if (picked != null) {
-    model.setChosenDate(
-      DateFormat.yMMMMd("en_Us").format(picked.toLocal())
-    );
+    model.setChosenDate(DateFormat.yMMMMd("en_Us").format(picked.toLocal()));
 
     return "${picked.year},${picked.month}${picked.day}";
   }
