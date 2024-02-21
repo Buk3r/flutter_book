@@ -49,7 +49,6 @@ class TasksList extends StatelessWidget {
                                 label: "Delete",
                                 backgroundColor: Colors.red,
                                 icon: Icons.delete,
-                                borderRadius: BorderRadius.circular(8),
                                 onPressed: (BuildContext context) async {
                                   await _deleteTask(context, task);
                                 },
@@ -118,34 +117,33 @@ class TasksList extends StatelessWidget {
   }
 
   Future _deleteTask(BuildContext context, Task task) {
-    return Future(() => null);
-    // return showDialog(
-    //     context: context,
-    //     builder: (BuildContext alertContext) {
-    //       return AlertDialog(
-    //         title: const Text("Delete Note"),
-    //         content: Text("Are you sure you want to delete ${note.title}?"),
-    //         actions: [
-    //           TextButton(
-    //               child: const Text("Cancel"),
-    //               onPressed: () {
-    //                 Navigator.of(alertContext).pop();
-    //               }),
-    //           TextButton(
-    //               child: const Text("Delete"),
-    //               onPressed: () async {
-    //                 await NotesDBWorker.db.delete(note.id);
-    //                 Navigator.of(alertContext).pop();
-    //                 ScaffoldMessenger.of(alertContext)
-    //                     .showSnackBar(const SnackBar(
-    //                   backgroundColor: Colors.red,
-    //                   duration: Duration(seconds: 2),
-    //                   content: Text("Note deleted"),
-    //                 ));
-    //                 notesModel.loadData("notes", NotesDBWorker.db);
-    //               }),
-    //         ],
-    //       );
-    //     });
+    return showDialog(
+        context: context,
+        builder: (BuildContext alertContext) {
+          return AlertDialog(
+            title: const Text("Delete Task"),
+            content: Text("Are you sure you want to delete this task?"),
+            actions: [
+              TextButton(
+                  child: const Text("Cancel"),
+                  onPressed: () {
+                    Navigator.of(alertContext).pop();
+                  }),
+              TextButton(
+                  child: const Text("Delete"),
+                  onPressed: () async {
+                    await TasksDBWorker.db.delete(task.id);
+                    Navigator.of(alertContext).pop();
+                    ScaffoldMessenger.of(alertContext)
+                        .showSnackBar(const SnackBar(
+                      backgroundColor: Colors.red,
+                      duration: Duration(seconds: 2),
+                      content: Text("Task deleted"),
+                    ));
+                    tasksModel.loadData("tasks", TasksDBWorker.db);
+                  }),
+            ],
+          );
+        });
   }
 }

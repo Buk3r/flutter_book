@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import 'TasksDBWorker.dart';
+import 'TasksEntry.dart';
 import 'TasksList.dart';
 import 'TasksModel.dart' show TaskModel, tasksModel;
 
@@ -18,9 +19,9 @@ class Tasks extends StatelessWidget {
         builder: (BuildContext context, Widget? child, TaskModel model) {
           return IndexedStack(
             index: model.stackIndex,
-            children: const [
-              TasksList(),
-              // TaskEntry(),
+            children: [
+              const TasksList(),
+              TasksEntry(),
             ],
           );
         },

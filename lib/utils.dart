@@ -29,6 +29,6 @@ Future selectDate(
   if (picked != null) {
     model.setChosenDate(DateFormat.yMMMMd("en_Us").format(picked.toLocal()));
 
-    return "${picked.year},${picked.month}${picked.day}";
+    return "${picked.year},${picked.month},${picked.day}";
   }
 }
